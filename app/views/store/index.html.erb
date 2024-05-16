@@ -9,6 +9,10 @@
   Your Pragmatic Catalog
 </h1>
 
+<% if @counter > 5 %>
+  <a><a>Home visited: <%= @counter %></a></a>
+<% end %>
+
 <ul>
   <% cache @products do %>
     <% @products.each do |product| %>
@@ -28,7 +32,8 @@
 
               <%= button_to 'Add to Cart', line_items_path(product_id: product), 
                   form_class: 'inline', 
-                  class: 'ml-4 rounded-lg py-1 px-2 text-white bg-green-600' %>
+                  class: 'ml-4 rounded-lg py-1 px-2 text-white bg-green-600',
+                  onclick: @counter = 0 %>
             </div>
           </div>
         </li>
