@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get '*path', to: 'application#render_404', via: :all
 
+  put 'line_items/:id/increase_quantity', to: 'line_items#increase_quantity', as: 'increase_quantity_cart'
   # Defines the root path route ("/")
   # root "posts#index"
 end

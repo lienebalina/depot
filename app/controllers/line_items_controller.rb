@@ -67,6 +67,14 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def increase_quantity
+    @line_item = LineItem.find(params[:id])
+    @line_item.quantity += 1
+    @line_item.save
+
+    redirect_to cart_url(session[:cart_id]), notice: "Item quantity increased"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item

@@ -63,6 +63,9 @@ class CartsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
       @cart = Cart.find(params[:id])
+      unless @cart.id == session[:cart_id]
+        redirect_to store_index_url, notice: 'You are not authorized to view this cart.'
+      end
     end
 
     # Only allow a list of trusted parameters through.
