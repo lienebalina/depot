@@ -39,7 +39,7 @@ class CartsController < ApplicationController
   def update
     respond_to do |format|
       if @cart.update(cart_params)
-        format.html { redirect_to cart_url(@cart), notice: "Cart was successfully updated." }
+        format.html { redirect_to store_index_url(@cart), notice: "Cart was successfully updated." }
         format.json { render :show, status: :ok, location: @cart }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,7 +64,7 @@ class CartsController < ApplicationController
     def set_cart
       @cart = Cart.find(params[:id])
       unless @cart.id == session[:cart_id]
-        redirect_to store_index_url, notice: 'You are not authorized to view this cart.'
+        redirect_to store_index_url, notice: 'You are not authorized to view this cart'
       end
     end
 
