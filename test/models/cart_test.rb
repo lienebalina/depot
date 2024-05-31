@@ -1,7 +1,10 @@
-require "test_helper"
+# frozen_string_literal: true
 
+require 'test_helper'
+
+# cart model tests
 class CartTest < ActiveSupport::TestCase
-  test "adding unique products to the cart" do
+  test 'adding unique products to the cart' do
     cart = Cart.create
     product1 = products(:ruby)
     product2 = products(:two)
@@ -12,7 +15,7 @@ class CartTest < ActiveSupport::TestCase
     assert_equal 2, cart.unique_line_items_count
   end
 
-  test "adding duplicate products to the cart" do
+  test 'adding duplicate products to the cart' do
     cart = Cart.create
     product = products(:ruby)
 
