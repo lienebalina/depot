@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Module for counting home visits
 module HomeVisited
   def update_times_visited
     session[:counter] ||= 0

@@ -1,5 +1,7 @@
-module HomeSession
+# frozen_string_literal: true
 
+# Module for current session home
+module HomeSession
   before_action :update_times_visited, only: [:index]
 
   def update_times_visited

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Store controller (home)
 class StoreController < ApplicationController
   include CurrentCart
   before_action :set_cart

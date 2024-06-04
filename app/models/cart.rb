@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Cart model class
 class Cart < ApplicationRecord
   has_many :line_items, dependent: :destroy
 
@@ -5,24 +8,20 @@ class Cart < ApplicationRecord
     current_item = line_items.find_by(product_id: product.id)
     if current_item
       current_item.quantity += 1
-      current_item.save
     else
-      current_item = line_items.build(
-        product_id: product.id,
-        price: product.price
-      )
-      current_item.save
+      current_item = line_items.build(product_id: product.id, price: product.price)
     end
+    current_item.save
     current_item
   end
 
   def total_price
-    line_items.sum { |item| item.total_price }
+    line_items.sum(&:total_price)
   end
 
   # counts the total quantity of line items
   def item_count
-    line_items.sum { |item| item.quantity }
+    line_items.sum(&:quantity)
   end
 
   # counts how many unique products are in the cart
