@@ -8,6 +8,8 @@
 #---
 # frozen_string_literal: true
 
+LineItem.delete_all
+Order.delete_all
 Product.delete_all
 Product.create!(title: 'Docker for Rails Developers',
                 description: %(<p>
@@ -55,3 +57,7 @@ Product.create!(title: 'Modern CSS with Tailwind',
                   </p>),
                 image_url: 'tailwind.jpg',
                 price: 18.95)
+
+PaymentType.create!(name: 'Check')
+PaymentType.create!(name: 'Credit card')
+PaymentType.create!(name: 'Purchase order')

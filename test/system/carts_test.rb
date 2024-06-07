@@ -14,13 +14,8 @@ class CartsTest < ApplicationSystemTestCase
   end
 
   test 'should create cart' do
-    visit carts_url
-    click_on 'New cart'
-
-    click_on 'Create Cart'
-
-    assert_text 'Cart was successfully created'
-    click_on 'Back'
+    visit store_index_url
+    click_on 'Add to Cart', match: :first
   end
 
   test 'should update Cart' do
@@ -33,10 +28,31 @@ class CartsTest < ApplicationSystemTestCase
     click_on 'Back'
   end
 
-  test 'should destroy Cart' do
-    visit cart_url(@cart)
-    click_on 'Destroy this cart', match: :first
+  test 'should empty Cart' do
+    visit store_index_url
+    click_on 'Add to Cart', match: :first
+    click_on 'Empty Cart', match: :first
+  end
 
-    assert_text 'Cart was successfully destroyed'
+  test 'should show cart' do
+    visit store_index_url
+    click_on 'Add to Cart', match: :first
+
+    assert has_text? 'Your Cart', wait: 10
+  end
+
+  test 'should hide cart' do
+    visit store_index_url
+    click_on 'Add to Cart', match: :first
+    click_on 'Empty Cart', match: :first
+
+    assert has_no_text? 'Your Cart', wait: 10
+  end
+
+  test 'should highlight changed items' do
+    visit store_index_url
+    click_on 'Add to Cart', match: :first
+
+    assert_selector '.line-item-highlight', count:1
   end
 end

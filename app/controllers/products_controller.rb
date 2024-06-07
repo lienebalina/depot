@@ -65,6 +65,17 @@ class ProductsController < ApplicationController
     end
   end
 
+  def who_bought
+    @product = Product.find(params[:id])
+    line_item_order_ids = @product.line_items.pluck(:order_id).uniq
+    @orders = Order.where(id: line_item_order_ids)
+    respond_to do |format|
+      format.html
+      format.json { render json: @product.to_json(include: :orders) }
+      format.xml { render xml: @product.to_xml(include: :orders) }
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -2,3 +2,4 @@
 import "channels";
 import "@hotwired/turbo-rails";
 import "@hotwired/stimulus";
+import "controllers";

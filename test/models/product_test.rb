@@ -33,10 +33,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'image url' do
-    ok = [fred.gif, fred.jpg,
-          fred.png, FRED.JPG, FRED.Jpg,
-          { http: // / a.b.c / x / y / z / fred.gif }]
-    bad = [fred.do, fred.gif / more, fred.gif.more]
+    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg http://a.b.c/x/y/z/fred.gif }
+    bad = %w{ fred.doc fred.gif/more fred.gif.more }
 
     ok.each do |image_url|
       assert new_product(image_url).valid?, "#{image_url} must be valid"
