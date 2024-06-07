@@ -36,11 +36,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_063741) do
     t.integer "pay_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "routing_number"
-    t.decimal "account_number"
-    t.decimal "credit_card_number"
-    t.datetime "expiration_date"
-    t.decimal "po_number"
+    t.string "routing_number"
+    t.string "account_number"
+    t.string "credit_card_number"
+    t.string "expiration_date"
+    t.string "po_number"
   end
 
   create_table "payment_types", force: :cascade do |t|
