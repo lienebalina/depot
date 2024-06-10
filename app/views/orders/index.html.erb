@@ -13,8 +13,9 @@
   <div id="orders" class="min-w-full">
     <% @orders.each do |order| %>
       <%= render order %>
-      <p>
+      <p class="flex">
         <%= link_to "Show this order", order, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= button_to 'Mark as Shipped', ship_order_path(order), method: :patch, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       </p>
     <% end %>
   </div>

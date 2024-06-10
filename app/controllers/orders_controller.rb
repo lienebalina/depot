@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: %i[ new create ]
   before_action :ensure_cart_isnt_empty, only: %i[ new ]
-  before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :set_order, only: %i[ show edit update destroy ship ]
 
   # GET /orders or /orders.json
   def index
@@ -31,6 +31,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
+        ChargeOrderJob.perform_later(@order, pay_type_params.to_h)
         format.html { redirect_to store_index_url, notice:
           "Thank you for your order." }
         format.json { render :show, status: :created, location: @order }
@@ -64,6 +65,16 @@ class OrdersController < ApplicationController
     end
   end
 
+  def ship
+    @order.update(ship_date: Time.current)
+    send_ship_date_notification
+
+    respond_to do |format|
+      format.html { redirect_to orders_url, notice: "Order was successfully marked as shipped." }
+      format.json { render :show, status: :ok, location: @order }
+    end
+  end
+
   private
     def ensure_cart_isnt_empty
       if @cart.line_items.empty?
@@ -79,5 +90,21 @@ class OrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:name, :address, :email, :pay_type, :routing_number, :account_number, :credit_card_number, :expiration_date, :po_number)
+    end
+
+    def pay_type_params
+      if order_params[:pay_type] == "Credit card"
+        params.require(:order).permit(:credit_card_number, :expiration_date)
+      elsif order_params[:pay_type] == "Check"
+        params.require(:order).permit(:routing_number, :account_number)
+      elsif order_params[:pay_type] == "Purchase order"
+        params.require(:order).permit(:po_number)
+      else
+        {}
+      end
+    end
+
+    def send_ship_date_notification
+      OrderMailer.shipped(@order).deliver_now
     end
 end
