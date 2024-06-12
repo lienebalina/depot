@@ -2,15 +2,19 @@ require "application_system_test_case"
 
 class UsersTest < ApplicationSystemTestCase
   setup do
+    @skip_login = true
+    super
     @user = users(:one)
   end
 
   test "visiting the index" do
+    login_as(@user)
     visit users_url
     assert_selector "h1", text: "Users"
   end
 
   test "should create user" do
+    login_as(@user)
     visit users_url
     click_on "New user"
 
@@ -24,7 +28,8 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "should update User" do
-    visit user_url(@user)
+    login_as(@user)
+    visit users_url
     click_on "Edit this user", match: :first
 
     fill_in "Name", with: @user.name
@@ -37,6 +42,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test "should destroy User" do
+    login_as(@user)
     visit user_url(@user)
     click_on "Destroy this user", match: :first
 

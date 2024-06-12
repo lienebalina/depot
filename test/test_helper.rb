@@ -34,7 +34,7 @@ module ActiveSupport
     end
 
     def setup
-      login_as users(:one)
+      login_as users(:one) if defined?(users) && !@skip_login
     end
   end
 end
