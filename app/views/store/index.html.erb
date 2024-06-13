@@ -2,7 +2,7 @@
 <%= render 'notice' %>
 
 <h1 class="font-bold text-xl mb-6 pb-2 border-b-2">
-  Your Pragmatic Catalog
+  <%= t('.title_html') %>
 </h1>
 
 <%= turbo_stream_from 'products' %>
@@ -13,7 +13,7 @@
 
 <ul>
   <% cache @products do %>
-    <% @products.each do |product| %>
+    <% @products.where(locale: I18n.locale).each do |product| %>
       <% cache product do %>
         <%= render partial: 'product', object: product %>
       <% end %>

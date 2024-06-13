@@ -11,6 +11,9 @@ Bundler.require(*Rails.groups)
 module Depot
   # App class
   class Application < Rails::Application
+
+    #config.i18n.default_locale = :en
+    #config.I18n.available_locales = [:en, :es]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 

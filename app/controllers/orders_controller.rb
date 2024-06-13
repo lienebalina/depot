@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @payment_type_names = PaymentType.pluck(:name)
   end
 
   # GET /orders/1/edit
@@ -34,7 +35,7 @@ class OrdersController < ApplicationController
         session[:cart_id] = nil
         ChargeOrderJob.perform_later(@order, pay_type_params.to_h)
         format.html { redirect_to store_index_url, notice:
-          "Thank you for your order." }
+          I18n.t('.thanks') }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
