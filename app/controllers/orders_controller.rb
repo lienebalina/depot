@@ -22,18 +22,21 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
+    @order = Order.find(params[:id])
+    @payment_type_names = PaymentType.pluck(:name)
   end
 
   # POST /orders or /orders.json
   def create
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(@cart)
+    @payment_type_names = PaymentType.pluck(:name)
 
     respond_to do |format|
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        ChargeOrderJob.perform_later(@order, pay_type_params.to_h)
+        ChargeOrderJob.perform_later(@order,pay_type_params.to_h)
         format.html { redirect_to store_index_url, notice:
           I18n.t('.thanks') }
         format.json { render :show, status: :created, location: @order }
@@ -46,6 +49,9 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
+    @order = Order.find(params[:id])
+    @payment_type_names = PaymentType.pluck(:name)
+
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to order_url(@order), notice: "Order was successfully updated." }

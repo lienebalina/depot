@@ -54,7 +54,7 @@ class OrdersTest < ApplicationSystemTestCase
     click_on "New order"
 
     fill_in "Address", with: @order.address
-    fill_in "Email", with: @order.email
+    fill_in "E-mail", with: @order.email
     fill_in "Name", with: @order.name
     fill_in "Pay type", with: @order.pay_type
     click_on "Create Order"
@@ -75,11 +75,11 @@ class OrdersTest < ApplicationSystemTestCase
 
     fill_in 'Name', with: 'Dave Thomas'
     fill_in 'Address', with: '123 Main Street'
-    fill_in 'Email', with: 'dave@example.com'
+    fill_in 'E-mail', with: 'dave@example.com'
 
-    select 'Check', from: 'Pay type'
-    fill_in 'Routing number', with: '123456'
-    fill_in 'Account number', with: '987654'
+    select 'Check', from: 'Pay with'
+    fill_in 'Routing #', with: '123456'
+    fill_in 'Account #', with: '987654'
 
     click_button 'Place Order'
     assert_text 'Thank you for your order'
@@ -109,9 +109,9 @@ class OrdersTest < ApplicationSystemTestCase
     click_on "Edit this order", match: :first
 
     fill_in "Address", with: @order.address
-    fill_in "Email", with: @order.email
+    fill_in "E-mail", with: @order.email
     fill_in "Name", with: @order.name
-    fill_in "Pay type", with: @order.pay_type
+    fill_in "Pay with", with: @order.pay_type
     click_on "Update Order"
 
     assert_text "Order was successfully updated"
@@ -149,9 +149,9 @@ class OrdersTest < ApplicationSystemTestCase
 
     fill_in 'Name', with: 'Dave Thomas'
     fill_in 'Address', with: '123 Main Street'
-    fill_in 'Email', with: 'dave@example.com'
+    fill_in 'E-mail', with: 'dave@example.com'
 
-    select 'Check', from: 'Pay type'
+    select 'Check', from: 'Pay with'
     fill_in 'Routing number', with: '123456'
     fill_in 'Account number', with: '987654'
 

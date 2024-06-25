@@ -38,7 +38,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update cart' do
     patch cart_url(@cart), params: { cart: {} }
-    assert_redirected_to store_index_url(@cart)
+    assert_redirected_to store_index_url
   end
 
   test 'should destroy cart' do

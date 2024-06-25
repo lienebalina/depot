@@ -10,7 +10,7 @@ class Order < ApplicationRecord
   }
 
   validates :name, :address, :email, presence: true
-  validates :pay_type, inclusion: { in: ->(order) { PaymentType.pluck(:name) } }
+  validates :pay_type, presence: true
 
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
@@ -30,7 +30,7 @@ class Order < ApplicationRecord
       payment_details[:account] = pay_type_params[:account_number]
     when "Credit card"
       payment_method = :credit_card
-      month,year = pay_type_params[:expiration_date].split(//)
+      month, year = pay_type_params[:expiration_date].split('/')
       payment_details[:cc_num] = pay_type_params[:credit_card_number]
       payment_details[:expiration_month] = month
       payment_details[:expiration_year] = year
@@ -48,7 +48,7 @@ class Order < ApplicationRecord
     if payment_result.succeeded?
       OrderMailer.received(self).deliver_later
     else
-      raise payment_result.error
+      raise StandardError.new(payment_result.error_message)
     end
   end
 end
