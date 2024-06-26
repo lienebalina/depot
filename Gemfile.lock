@@ -106,10 +106,15 @@ GEM
     eu_central_bank (1.7.0)
       money (~> 6.13, >= 6.13.6)
       nokogiri (~> 1.9)
+    ffi (1.17.0-x64-mingw-ucrt)
+    ffi (1.17.0-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
+    image_processing (1.12.2)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -133,6 +138,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    mini_magick (4.13.1)
     mini_mime (1.1.5)
     minitest (5.22.3)
     money (6.19.0)
@@ -232,6 +238,8 @@ GEM
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
     ruby-progressbar (1.13.0)
+    ruby-vips (2.2.1)
+      ffi (~> 1.12)
     rubyzip (2.3.2)
     selenium-webdriver (4.20.1)
       base64 (~> 0.2)
@@ -289,6 +297,7 @@ DEPENDENCIES
   capybara
   debug
   eu_central_bank
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
   money

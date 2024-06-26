@@ -3,3 +3,6 @@ import "channels";
 import "@hotwired/turbo-rails";
 import "@hotwired/stimulus";
 import "controllers";
+
+import "trix"
+import "@rails/actiontext"
