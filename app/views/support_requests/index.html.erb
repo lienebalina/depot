@@ -5,41 +5,51 @@
                 On <%= support_request.created_at.to_formatted_s(:long) %>
                 <code><%= support_request.email %></code> writes:
             </h1>
-            <blockquote>
+            <blockquote class="border-l-4 border-gray-500 italic my-8 pl-4 md:pl-8 py-4 mx-4 md:mx-10 max-w-md">
                 <p>
-                    <h2><%= support_request.subject %></h2>
-                    <%= support_request.body %>
+                    <h2 class="font-medium"><%= support_request.subject %></h2>
+                    <p class="text-gray-600"><%= support_request.body %></p>
                 </p>
             </blockquote>
             <% if support_request.order %>
-                <h3>Recent Order</h3>
-                <dl>
-                    <dt>Name</dt>
-                    <dd><%= support_request.order.name %></dd>
+                <h3 class="text-base font-semibold leading-7 text-gray-900">Recent Order</h3>
+                <dl class="divide-y divide-gray-100">
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Name</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.name %></dd>
+                    </div>
 
-                    <dt>Email</dt>
-                    <dd><%= support_request.order.email %></dd>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Email</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.email %></dd>
+                    </div>
 
-                    <dt>Address</dt>
-                    <dd><%= support_request.order.address %></dd>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Address</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.address %></dd>
+                    </div>
 
-                    <dt>Pay Type</dt>
-                    <dd><%= support_request.order.pay_type %></dd>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Pay Type</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.pay_type %></dd>
+                    </div>
 
-                    <dt>Line Items</dt>
-                    <dd>
-                        <ul>
-                            <% support_request.order.line_items.each do |line_item| %>
-                                <li>
-                                    <%= line_item.product.title %>
-                                    (<%= line_item.product.price %>)
-                                </li>
-                            <% end %>
-                        </ul>
-                    </dd>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Line Items</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                            <ul>
+                                <% support_request.order.line_items.each do |line_item| %>
+                                    <li>
+                                        <%= line_item.product.title %>
+                                        (<%= number_to_currency(line_item.product.price) %>)
+                                    </li>
+                                <% end %>
+                            </ul>
+                        </dd>
+                    </div>
                 </dl>
             <% else %>
-                <h3 class="notice">No associated order</h3>
+                <h3 class="border border-red-400 bg-red-100 px-4 py-3 text-red-700">No associated order</h3>
             <% end %>
             <% if support_request.response.blank? %>
                 <%= form_with(model: support_request,
@@ -54,13 +64,16 @@
                 </div>
                 <% end %>
             <% else %>
-                <h4>Our response:</h4>
-                <p>
-                    <blockquote>
-                        <%= support_request.response %>
-                    </blockquote>
-                </p>
+                <div class="mt-4 mb-4 bg-green-100">
+                    <h4 class="md:mx-10 text-base font-semibold leading-7 text-gray-900">Our response:</h4>
+                    <p>
+                        <blockquote class="border-gray-500 italic my-8 pl-4 md:pl-8 md:mx-10 max-w-md">
+                            <%= support_request.response %>
+                        </blockquote>
+                    </p>
+                </div>
             <% end %>
+            <hr class="border-green-700">
         </li>
     <% end %>
 </ul>
