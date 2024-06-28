@@ -2,6 +2,7 @@
 
 # Product model class
 class Product < ApplicationRecord
+    has_rich_text :description
   validates :title, :description, :image_url, presence: true
   validates :title, uniqueness: true
   validates :title, length: { minimum: 10, message: 'Must be at least 10 characters long!' }

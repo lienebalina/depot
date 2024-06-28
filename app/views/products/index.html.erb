@@ -35,8 +35,7 @@
           <td>
             <h1 class="text-xl font-bold mb-3"><%= product.title %></h1>
             <p>
-              <%= truncate(strip_tags(product.description),
-                           length: 80) %>
+              <%= product.description %>
             </p>
           </td>
 

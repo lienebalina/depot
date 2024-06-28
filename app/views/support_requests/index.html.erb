@@ -11,34 +11,41 @@
                     <p class="text-gray-600"><%= support_request.body %></p>
                 </p>
             </blockquote>
-            <% if support_request.order %>
-                <h3 class="text-base font-semibold leading-7 text-gray-900">Recent Order</h3>
+            <% orders = @support_orders[support_request.id] %>
+            <% if orders.any? %>
+                <h3 class="text-base font-semibold leading-7 text-gray-900">Orders</h3>
                 <dl class="divide-y divide-gray-100">
+                    <% orders.each do |order| %>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Ordered at</dt>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= order.created_at %></dd>
+                    </div>
+
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Name</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.name %></dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= order.name %></dd>
                     </div>
 
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Email</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.email %></dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= order.email %></dd>
                     </div>
 
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Address</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.address %></dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= order.address %></dd>
                     </div>
 
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt class="text-sm font-medium leading-6 text-gray-900">Pay Type</dt>
-                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= support_request.order.pay_type %></dd>
+                        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= order.pay_type %></dd>
                     </div>
 
                     <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt class="text-sm font-medium leading-6 text-gray-900">Line Items</dt>
+                        <dt class="text-sm font-medium leading-6 text-gray-900">Orders</dt>
                         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                             <ul>
-                                <% support_request.order.line_items.each do |line_item| %>
+                                <% order.line_items.each do |line_item| %>
                                     <li>
                                         <%= line_item.product.title %>
                                         (<%= number_to_currency(line_item.product.price) %>)
@@ -47,6 +54,7 @@
                             </ul>
                         </dd>
                     </div>
+                    <% end %>
                 </dl>
             <% else %>
                 <h3 class="border border-red-400 bg-red-100 px-4 py-3 text-red-700">No associated order</h3>
