@@ -5,7 +5,7 @@ require 'test_helper'
 # products controller tests
 class ProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @product = products(:one)
+    @product = products(:ruby)
     @title = "The Great Book #{rand(1000)}"
   end
 
@@ -63,7 +63,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should destroy product' do
     assert_difference('Product.count', -1) do
-      delete product_url(@product)
+      delete product_url(products(:one))
     end
 
     assert_redirected_to products_url

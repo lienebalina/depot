@@ -61,3 +61,5 @@ Product.create!(title: 'Modern CSS with Tailwind',
 PaymentType.create!(name: 'Check')
 PaymentType.create!(name: 'Credit card')
 PaymentType.create!(name: 'Purchase order')
+User.create! name: 'dave',
+             password: Rails.application.credentials.dave_password

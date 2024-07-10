@@ -2,3 +2,13 @@
 #   record: name_of_fixture (ClassOfFixture)
 #   name: content
 #   body: <p>In a <i>million</i> stars!</p>
+
+ruby_description:
+  record: ruby (Product)
+  name: description
+  body: <div>Ruby is the fastest growing and most exciting dynamic language out there. If you need to get working programs delivered fast, you should add Ruby to your toolbox.</div>
+
+one_description:
+  record: one (Product)
+  name: description
+  body: <div>My Text</div>
